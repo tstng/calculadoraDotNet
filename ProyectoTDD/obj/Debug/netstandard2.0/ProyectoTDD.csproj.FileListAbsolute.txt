@@ -1,0 +1,8 @@
+C:\Users\Usuario.DESKTOP-4SRB24B\Documents\Proyectos\Proyecto\ProyectoTDD\bin\Debug\netstandard2.0\ProyectoTDD.deps.json
+C:\Users\Usuario.DESKTOP-4SRB24B\Documents\Proyectos\Proyecto\ProyectoTDD\bin\Debug\netstandard2.0\ProyectoTDD.dll
+C:\Users\Usuario.DESKTOP-4SRB24B\Documents\Proyectos\Proyecto\ProyectoTDD\bin\Debug\netstandard2.0\ProyectoTDD.pdb
+C:\Users\Usuario.DESKTOP-4SRB24B\Documents\Proyectos\Proyecto\ProyectoTDD\obj\Debug\netstandard2.0\ProyectoTDD.csprojAssemblyReference.cache
+C:\Users\Usuario.DESKTOP-4SRB24B\Documents\Proyectos\Proyecto\ProyectoTDD\obj\Debug\netstandard2.0\ProyectoTDD.AssemblyInfoInputs.cache
+C:\Users\Usuario.DESKTOP-4SRB24B\Documents\Proyectos\Proyecto\ProyectoTDD\obj\Debug\netstandard2.0\ProyectoTDD.AssemblyInfo.cs
+C:\Users\Usuario.DESKTOP-4SRB24B\Documents\Proyectos\Proyecto\ProyectoTDD\obj\Debug\netstandard2.0\ProyectoTDD.dll
+C:\Users\Usuario.DESKTOP-4SRB24B\Documents\Proyectos\Proyecto\ProyectoTDD\obj\Debug\netstandard2.0\ProyectoTDD.pdb
