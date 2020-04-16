@@ -4,22 +4,21 @@ using System.IO;
 using System.Text.RegularExpressions;
 
 /*
-    Requisitos:
-        Backend
-        - OK_Debe existir clase para la aplicación.
-        - OK_Debe recibir solamente valores numericos
-        - OK_Debe recibir 2 valores numericos y un string con el nombre del operador
-        - OK_Debe Sumar 2 valores numericos y devolver su resultado
-        - OK_Debe Restar 2 valores numericos y devolver su resultado
-        - OK_Debe Multiplicar 2 valores numericos y devolver su resultado
-        - OK_Debe Dividir 2 valores numericos y devolver su resultado
-        - OK_Si el OPERADOR es distinto debe devolver mensaje "NO ES UN OPERADOR VÁLIDO"
-        - OK_No debe dividir por CERO.
-        - OK_Debe recibir y calcular números con 2 cifras decimales.
-        Frontend
-        - OK_Mensaje de Bienvenida
-        - OK_Mensaje Solicitar primer
-        - Control de alfanumerico primer y segundo número
+Requisitos:
+    Backend
+    - OK_Debe existir clase para la aplicación.
+    - OK_Debe recibir solamente valores numericos
+    - OK_Debe recibir 2 valores numericos y un string con el nombre del operador
+    - OK_Debe Sumar 2 valores numericos y devolver su resultado
+    - OK_Debe Restar 2 valores numericos y devolver su resultado
+    - OK_Debe Multiplicar 2 valores numericos y devolver su resultado
+    - OK_Debe Dividir 2 valores numericos y devolver su resultado
+    - OK_Si el OPERADOR es distinto debe devolver mensaje "NO ES UN OPERADOR VÁLIDO"
+    - OK_No debe dividir por CERO.
+    - OK_Debe recibir y calcular números con 2 cifras decimales.
+    - OK_Mensaje de Bienvenida
+    - OK_Mensaje Solicitar primer
+    - Control de alfanumerico primer y segundo número
 
 */
 

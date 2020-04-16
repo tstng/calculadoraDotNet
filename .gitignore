@@ -3,14 +3,17 @@
 
 ### DotnetCore ###
 # .NET Core build folders
-/bin
-/obj
+ProyectoTDD/bin/
+ProyectoTDD/obj/
+ProyectoTDD.Test/bin/
+ProyectoTDD.Test/obj/
+obj/
+.scannerwork/
+sonarqube/
 *.exe
 *.dll
 
-# Common node modules locations
-/node_modules
-/wwwroot/node_modules
+
 
 
 # End of https://www.gitignore.io/api/dotnetcore
