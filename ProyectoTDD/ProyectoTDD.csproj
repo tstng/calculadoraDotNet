@@ -3,6 +3,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <!-- SonarQube needs this -->
+    <ProjectGuid>{7a37f54c-c318-4d72-8532-82dc45ea91b7}</ProjectGuid>
   </PropertyGroup>
 
 </Project>
