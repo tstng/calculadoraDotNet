@@ -18,12 +18,7 @@ stages:
       displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
       inputs:
         version: '$(dotnetSdkVersion)'
-
-    - task: UseDotNet@2
-      displayName: 'Use .NET Core SDK 2.1.505 for SonarCloud'
-      inputs:
-        version: '2.1.505'
-
+        
     - task: DotNetCoreCLI@2
       displayName: 'Restore project dependencies'
       inputs:
@@ -59,4 +54,15 @@ stages:
       condition: succeeded()
 
 - stage: 
-  displayName: 'Release en develop'
+  displayName: 'Desplegando en develop'
+
+  jobs:
+  - job:
+
+    steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Write your commands here          
+            echo 'Hello world'
