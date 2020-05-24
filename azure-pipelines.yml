@@ -38,7 +38,7 @@ stages:
         command: 'test'
         arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
         publishTestResults: true
-        projects: '**/*.Tests.csproj'
+        projects: '**/*.Test.csproj'
 
     - task: DotNetCoreCLI@2
       displayName: 'Publish the project'
