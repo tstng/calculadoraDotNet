@@ -12,7 +12,7 @@ stages:
 
   jobs:
   - job:
-
+    displayName: 'Compilado'
     steps:
     - task: UseDotNet@2
       displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
@@ -31,6 +31,11 @@ stages:
         command: 'build'
         arguments: '--no-restore'
         projects: '**/*.csproj'
+        
+  - job:
+    displayName: 'Pruebas Unitarias'
+    condition: and(succeeded(), (variables['Build.SourceBranch'], 'refs/heads/develop'))
+    steps:
 
     - task: DotNetCoreCLI@2
       displayName: 'Run unit tests'
@@ -39,19 +44,20 @@ stages:
         arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
         publishTestResults: true
         projects: '**/*.Test.csproj'
-      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
-    
+
     - script: |
         reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
       displayName: 'Crear HTML para reporte de cobertura de código'
-      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
 
     - task: PublishCodeCoverageResults@1
       displayName: 'Publicar reporte de Cobertura de Código'
       inputs:
         codeCoverageTool: 'cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
-      condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  - job: 
+    displayName: 'Publicar Artefacto'
+    steps:
 
     - task: DotNetCoreCLI@2
       displayName: 'Publish the project'
@@ -74,9 +80,9 @@ stages:
   - job:
 
     steps:
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: |
-            # Write your commands here          
-            echo 'Hello world'
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here          
+          echo 'Hello world'
