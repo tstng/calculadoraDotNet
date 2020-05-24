@@ -54,7 +54,7 @@ stages:
         projects: '**/*.Test.csproj'
 
     - task: SonarQubeAnalyze@4
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+      #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 
     - task: SonarQubePublish@4
       #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
