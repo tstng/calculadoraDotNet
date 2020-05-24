@@ -34,6 +34,10 @@ stages:
         
 - stage: stagePruebasUnitarias
   displayName: 'Pruebas Unitarias'
+  pool:
+    name: 'myAgent'
+  variables:
+    dotnetSdkVersion: '3.1.100'
   dependsOn: stageBuild
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
   jobs:
@@ -59,6 +63,10 @@ stages:
 
 - stage: stagePublicarArtefacto
   displayName: 'Publicar Artefacto'
+  pool:
+    name: 'myAgent'
+  variables:
+    dotnetSdkVersion: '3.1.100'
   dependsOn: stageBuild
   jobs:
   - job: jobPublicarArtefacto
@@ -77,6 +85,8 @@ stages:
       condition: succeeded()
 
 - stage: stageDespliegueDevelop
+  pool:
+    name: 'myAgent'
   displayName: 'Desplegando en develop'
   dependsOn: stageBuild
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
