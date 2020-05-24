@@ -32,12 +32,13 @@ stages:
         arguments: '--no-restore'
         projects: '**/*.csproj'
         
+- stage: stagePruebasUnitarias
+  displayName: 'Pruebas Unitarias'
+  dependsOn: stageBuild
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
   - job: jobPruebasUnitarias
-    displayName: 'Pruebas Unitarias'
-    dependsOn: jobCompilar
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     steps:
-
     - task: DotNetCoreCLI@2
       displayName: 'Run unit tests'
       inputs:
@@ -56,11 +57,11 @@ stages:
         codeCoverageTool: 'cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
+- stage: stagePublicarArtefacto
+  displayName: 'Publicar Artefacto'
+  jobs:
   - job: jobPublicarArtefacto
-    displayName: 'Publicar Artefacto'
-    dependsOn: jobCompilar
     steps:
-
     - task: DotNetCoreCLI@2
       displayName: 'Publish the project'
       inputs:
