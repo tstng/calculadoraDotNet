@@ -41,12 +41,12 @@ stages:
       displayName: 'Run unit tests'
       inputs:
         command: 'test'
-        arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
+        arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)ProyectoTDD.Test/TestResults/Coverage/'
         publishTestResults: true
         projects: '**/*.Test.csproj'
 
     - script: |
-        reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/TestResults/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
+        reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/ProyectoTDD.Test/TestResults/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
       displayName: 'Crear HTML para reporte de cobertura de código'
 
     - task: PublishCodeCoverageResults@1
