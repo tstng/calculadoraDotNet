@@ -3,16 +3,16 @@ trigger:
 - master
 
 stages:
-- stage: Build
-  displayName: 'Escenario Build'
+- stage:
+  displayName: 'Build'
   pool:
     name: 'myAgent'
   variables:
     dotnetSdkVersion: '3.1.100'
 
   jobs:
-  - job: jobCompilar
-    displayName: 'Job para Compilado'
+  - job:
+    displayName: 'Compilado'
     steps:
     - task: UseDotNet@2
       displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
@@ -32,9 +32,8 @@ stages:
         arguments: '--no-restore'
         projects: '**/*.csproj'
         
-  - job: jobPruebasUnitarias
-    displayName: 'Job para Pruebas Unitarias'
-    dependsOn: jobCompilar
+  - job:
+    displayName: 'Pruebas Unitarias'
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     steps:
 
@@ -42,7 +41,7 @@ stages:
       displayName: 'Run unit tests'
       inputs:
         command: 'test'
-        arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/Coverage/'
+        arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
         publishTestResults: true
         projects: '**/*.Test.csproj'
 
@@ -56,9 +55,8 @@ stages:
         codeCoverageTool: 'cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
-  - job: jobPublicarArtefactos
-    displayName: 'Job para Publicar Artefacto'
-    dependsOn: jobCompilar
+  - job: 
+    displayName: 'Publicar Artefacto'
     steps:
 
     - task: DotNetCoreCLI@2
@@ -74,7 +72,7 @@ stages:
       displayName: 'Publish Artifact: drop'
       condition: succeeded()
 
-- stage: 'Despliegue en Develop'
+- stage: 
   displayName: 'Desplegando en develop'
   dependsOn: Build
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
