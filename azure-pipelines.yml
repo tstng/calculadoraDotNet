@@ -3,7 +3,7 @@ trigger:
 - master
 
 stages:
-- stage:
+- stage: stageBuild
   displayName: 'Build'
   pool:
     name: 'myAgent'
@@ -74,9 +74,9 @@ stages:
       displayName: 'Publish Artifact: drop'
       condition: succeeded()
 
-- stage: 
+- stage: stageDespliegueDevelop
   displayName: 'Desplegando en develop'
-  dependsOn: Build
+  dependsOn: stageBuild
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 
   jobs:
