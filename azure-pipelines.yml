@@ -43,10 +43,12 @@ stages:
 
     - script: |
         reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
       displayName: 'Crear HTML para reporte de cobertura de código'
 
     - task: PublishCodeCoverageResults@1
       displayName: 'Publicar reporte de Cobertura de Código'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
       inputs:
         codeCoverageTool: 'cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
