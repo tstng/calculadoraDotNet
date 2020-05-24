@@ -1,0 +1,62 @@
+trigger:
+- develop
+- master
+
+stages:
+- stage:
+  displayName: 'Build'
+  pool:
+    name: 'myAgent'
+  variables:
+    dotnetSdkVersion: '3.1.100'
+
+  jobs:
+  - job:
+
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
+      inputs:
+        version: '$(dotnetSdkVersion)'
+
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core SDK 2.1.505 for SonarCloud'
+      inputs:
+        version: '2.1.505'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore project dependencies'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build the project'
+      inputs:
+        command: 'build'
+        arguments: '--no-restore'
+        projects: '**/*.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Run unit tests'
+      inputs:
+        command: 'test'
+        arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
+        publishTestResults: true
+        projects: '**/*.Tests.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish the project'
+      inputs:
+        command: 'publish'
+        projects: '**/*.csproj'
+        publishWebProjects: false
+        arguments: '--no-build --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+        zipAfterPublish: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      condition: succeeded()
+
+- stage: 
+  displayName: 'Release en develop'
