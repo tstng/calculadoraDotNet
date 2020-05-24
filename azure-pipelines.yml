@@ -35,7 +35,7 @@ stages:
         extraProperties: |
           sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
           sonar.exclusions=**/wwwroot/lib/**/*
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+      #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 
     - task: DotNetCoreCLI@2
       displayName: 'Build the project'
@@ -46,7 +46,7 @@ stages:
 
     - task: DotNetCoreCLI@2
       displayName: 'Run unit tests'
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+      #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
       inputs:
         command: 'test'
         arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
@@ -57,18 +57,18 @@ stages:
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 
     - task: SonarQubePublish@4
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+      #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
       inputs:
         pollingTimeoutSec: '30'
 
     - script: |
         reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+      #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
       displayName: 'Crear HTML para reporte de cobertura de código'
 
     - task: PublishCodeCoverageResults@1
       displayName: 'Publicar reporte de Cobertura de Código'
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+      #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
       inputs:
         codeCoverageTool: 'cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
@@ -84,14 +84,14 @@ stages:
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
-      condition: succeeded()
+      #condition: succeeded()
 
 - stage: stageDespliegueDevelop
   pool:
     name: 'myAgent'
   displayName: 'Desplegando en develop'
   dependsOn: stageBuild
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 
   jobs:
   - job:
