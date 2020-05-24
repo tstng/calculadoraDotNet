@@ -24,6 +24,18 @@ stages:
       inputs:
         command: 'restore'
         projects: '**/*.csproj'
+    
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'SonarQube'
+        scannerMode: 'MSBuild'
+        projectKey: 'dotnet-calculadora'
+        projectName: 'Calculadora de prueba con DotNet Core'
+        projectVersion: '$(Build.BuildId)_$(Build.BuildNumber)'
+        extraProperties: |
+          sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.opencover.xml
+          sonar.exclusions=**/wwwroot/lib/**/*
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
 
     - task: DotNetCoreCLI@2
       displayName: 'Build the project'
@@ -40,6 +52,14 @@ stages:
         arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
         publishTestResults: true
         projects: '**/*.Test.csproj'
+
+    - task: SonarQubeAnalyze@4
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+
+    - task: SonarQubePublish@4
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+      inputs:
+        pollingTimeoutSec: '30'
 
     - script: |
         reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
