@@ -11,8 +11,8 @@ stages:
     dotnetSdkVersion: '3.1.100'
 
   jobs:
-  - job:
-    displayName: 'Compilado'
+  - job: jobCompilar
+    displayName: 'Job para Compilado'
     steps:
     - task: UseDotNet@2
       displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
@@ -32,9 +32,9 @@ stages:
         arguments: '--no-restore'
         projects: '**/*.csproj'
         
-  - job:
-    displayName: 'Pruebas Unitarias'
-    dependsOn: Build
+  - job: jobPruebasUnitarias
+    displayName: 'Job para Pruebas Unitarias'
+    dependsOn: jobCompilar
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     steps:
 
@@ -56,9 +56,9 @@ stages:
         codeCoverageTool: 'cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
-  - job: 
-    displayName: 'Publicar Artefacto'
-    dependsOn: Build
+  - job: jobPublicarArtefactos
+    displayName: 'Job para Publicar Artefacto'
+    dependsOn: jobCompilar
     steps:
 
     - task: DotNetCoreCLI@2
