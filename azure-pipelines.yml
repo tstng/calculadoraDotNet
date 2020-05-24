@@ -39,6 +39,10 @@ stages:
         arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
         publishTestResults: true
         projects: '**/*.Test.csproj'
+    
+    - script: |
+        reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
+      displayName: 'Crear reporte de cobertura de código'
 
     - task: DotNetCoreCLI@2
       displayName: 'Publish the project'
