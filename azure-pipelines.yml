@@ -46,7 +46,7 @@ stages:
         projects: '**/*.Test.csproj'
 
     - script: |
-        reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
+        reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/TestResults/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
       displayName: 'Crear HTML para reporte de cobertura de código'
 
     - task: PublishCodeCoverageResults@1
