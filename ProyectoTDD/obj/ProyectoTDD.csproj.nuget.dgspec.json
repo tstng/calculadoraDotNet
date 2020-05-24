@@ -13,6 +13,9 @@
         "packagesPath": "C:\\Users\\Usuario.DESKTOP-4SRB24B\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Usuario.DESKTOP-4SRB24B\\Documents\\Proyectos\\Proyecto\\ProyectoTDD\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\Usuario.DESKTOP-4SRB24B\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],

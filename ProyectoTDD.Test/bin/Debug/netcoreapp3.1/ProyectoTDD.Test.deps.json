@@ -11,12 +11,14 @@
           "Microsoft.NET.Test.Sdk": "16.4.0",
           "NUnit3TestAdapter": "3.15.1",
           "ProyectoTDD": "1.0.0",
+          "coverlet.msbuild": "2.8.1",
           "NUnit": "3.12.0"
         },
         "runtime": {
           "ProyectoTDD.Test.dll": {}
         }
       },
+      "coverlet.msbuild/2.8.1": {},
       "Microsoft.CodeCoverage/16.4.0": {
         "runtime": {
           "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {
@@ -878,6 +880,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "coverlet.msbuild/2.8.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1UxeO/LqzO1YY//PSM3DSZzy28JycfPsrlgWQik+ovvqk3uREJ99hMHRjEaOcLnrUxKmEExRzphwBa5VYkOvtg==",
+      "path": "coverlet.msbuild/2.8.1",
+      "hashPath": "coverlet.msbuild.2.8.1.nupkg.sha512"
     },
     "Microsoft.CodeCoverage/16.4.0": {
       "type": "package",

@@ -119,35 +119,5 @@ namespace ProyectoTDD.Test
             Assert.AreEqual(6.30,resultado,"Probando Calculo con Decimales");
 
         }
-
-        [Test]
-        public void Frontend_MensajeBienvenida(){
-            
-            using (var sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                Frontend.Frontend.Main();
-
-                var outConsola = sw.ToString().Trim();
-                var splitLineas = Regex.Split(outConsola, "\r\n|\r|\n");
-
-                Assert.AreEqual("Calculadora por Consola", splitLineas[0], "Probando mensaje de bienvenida");
-            }
-        }
-
-        [Test]
-        public void Frontend_ControlAlfaNumericos(){
-            using (var sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-                Frontend.Frontend.Main();
-
-                var outConsola = sw.ToString().Trim();
-                var splitLineas = Regex.Split(outConsola, "\r\n|\r|\n");
-
-                Assert.AreEqual("Digite el PRIMER numero:", splitLineas[1], "Debe ingresar PRIMER número");
-                Assert.AreEqual("Digite el SEGUNDO numero:", splitLineas[2], "Debe ingresar SEGUNDO número");
-            }
-        }        
     }
 }
