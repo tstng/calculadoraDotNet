@@ -59,6 +59,7 @@ stages:
 
 - stage: stagePublicarArtefacto
   displayName: 'Publicar Artefacto'
+  dependsOn: stageBuild
   jobs:
   - job: jobPublicarArtefacto
     steps:
