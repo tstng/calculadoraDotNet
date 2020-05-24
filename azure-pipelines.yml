@@ -31,20 +31,10 @@ stages:
         command: 'build'
         arguments: '--no-restore'
         projects: '**/*.csproj'
-        
-- stage: stagePruebasUnitarias
-  displayName: 'Pruebas Unitarias'
-  pool:
-    name: 'myAgent'
-  variables:
-    dotnetSdkVersion: '3.1.100'
-  dependsOn: stageBuild
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
-  jobs:
-  - job: jobPruebasUnitarias
-    steps:
+
     - task: DotNetCoreCLI@2
       displayName: 'Run unit tests'
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
       inputs:
         command: 'test'
         arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
@@ -61,16 +51,6 @@ stages:
         codeCoverageTool: 'cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
-- stage: stagePublicarArtefacto
-  displayName: 'Publicar Artefacto'
-  pool:
-    name: 'myAgent'
-  variables:
-    dotnetSdkVersion: '3.1.100'
-  dependsOn: stageBuild
-  jobs:
-  - job: jobPublicarArtefacto
-    steps:
     - task: DotNetCoreCLI@2
       displayName: 'Publish the project'
       inputs:
