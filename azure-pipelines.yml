@@ -12,7 +12,7 @@ stages:
 
   jobs:
   - job: jobCompilar
-    displayName: 'Job para Compilado'
+    displayName: 'Compilado'
     steps:
     - task: UseDotNet@2
       displayName: 'Use .NET Core SDK $(dotnetSdkVersion)'
@@ -33,7 +33,7 @@ stages:
         projects: '**/*.csproj'
         
   - job: jobPruebasUnitarias
-    displayName: 'Job para Pruebas Unitarias'
+    displayName: 'Pruebas Unitarias'
     dependsOn: jobCompilar
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
     steps:
@@ -42,7 +42,7 @@ stages:
       displayName: 'Run unit tests'
       inputs:
         command: 'test'
-        arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/Coverage/'
+        arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura%2copencover" /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/'
         publishTestResults: true
         projects: '**/*.Test.csproj'
 
@@ -56,8 +56,8 @@ stages:
         codeCoverageTool: 'cobertura'
         summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
 
-  - job: jobPublicarArtefactos
-    displayName: 'Job para Publicar Artefacto'
+  - job: jobPublicarArtefacto
+    displayName: 'Publicar Artefacto'
     dependsOn: jobCompilar
     steps:
 
